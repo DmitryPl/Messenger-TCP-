@@ -83,7 +83,7 @@ void Server_t::Print_Cach() {
 
 bool Server_t::Send_Users(int client) {
 	try {
-		auto that = Data.find(client);
+		auto that = Data.find(client); //redo
 		for (auto it : Data) {
 			if (it.first != client) {
 				mess_t buf;
@@ -128,7 +128,7 @@ bool Server_t::Start() {
 
 bool Server_t::Create_Thread() {
 	try {
-		ev.events = EPOLLIN | EPOLLET; //watch just incoming(EPOLLIN)/and Edge Trigged(EPOLLET) events
+		ev.events = EPOLLIN | EPOLLET;
 		listener = socket(AF_INET, SOCK_STREAM, 0);
 		if (listener == ERROR) {
 			throw error = "Error - listener";
@@ -397,7 +397,7 @@ bool Server_t::Online_Client(int client) {
 		}
 		it->second.status = ON;
 		bool flag = true;
-		while (flag) {
+		while (flag) { //redo
 			auto it = Cach.begin();
 			for (; it < Cach.end(); ++it) {
 				if (it->client == client) {

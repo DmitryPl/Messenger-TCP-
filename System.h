@@ -96,16 +96,11 @@ int setnonblocking(int sockfd) {
 	return 0;
 }
 
-bool Send_Message(int socket_d, size_t id, char sys, const char* message, size_t num, size_t pack_size) {
+bool Send_Message(int socket_d, int id, char sys, const char* message, size_t num, size_t pack_size) {
 	try {
 		string error;
-		mess_t mes;
-		bzero(&mes, sizeof(mes));
+		mess_t mes = { id, sys, "0", num, pack_size };
 		memcpy(mes.message, message, sizeof(mes.message));
-		mes.id = id;
-		mes.sys = sys;
-		mes.num = num;
-		mes.package_size = pack_size;
 		if (DEBUG) {
 			printf("Send to %d\n", socket_d);
 			printf("message : %s, id: %d, sys: %c\n", message, mes.id, mes.sys);
